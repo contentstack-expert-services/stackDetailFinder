@@ -1,0 +1,8 @@
+.qodo
+node_modules
+package-lock.json
+dist
+.vscode
+blt*
+.env
+*.xlsx

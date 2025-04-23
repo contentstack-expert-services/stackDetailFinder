@@ -6,14 +6,20 @@ const contentstack = require('@contentstack/management');
 const orgPlanFinder = require('./libs/orgPlanFinder');
 
 const fetchStack = require('./libs/fetchStack');
-let authtoken = process.env.AUTHTOKEN;
-let org_uid = process.env.ORG_UID;
-let api_key = process.env.STACK_API_KEY;
+let authtoken = process.env.AUTHTOKEN.replace(/^\s+/, '').split('//')[0].trim();
+let org_uid = process.env.ORG_UID.replace(/^\s+/, '').split('//')[0].trim();
+let api_key = process.env.STACK_API_KEY.replace(/^\s+/, '')
+  .split('//')[0]
+  .trim();
 
 const fetchStackDetails = async () => {
   try {
     // Step 1: Make sure orgPlanFinder is properly async and returns a promise
-    await orgPlanFinder(process.env.REGION, authtoken, org_uid);
+    await orgPlanFinder(
+      process.env.REGION.replace(/^\s+/, '').split('//')[0].trim(),
+      authtoken,
+      org_uid
+    );
     console.log('Organization plan data collection complete!');
 
     let orgPlanReaderPath = path.join(
